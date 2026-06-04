@@ -1,0 +1,18 @@
+branches:
+  chore:
+    increment: Patch
+    regex: ^chore/.*$
+  feat:
+    increment: Minor
+    regex: ^feat/.*$
+  feature:
+    increment: Minor
+    regex: ^feature/.*$
+  fix:
+    increment: Patch
+    regex: ^fix/.*$
+  main:
+    regex: ^main$
+mode: semantic
+next-version-bump-type: Minor
+version: 0

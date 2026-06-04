@@ -1,0 +1,47 @@
+---
+name: SonarCloud Analysis
+
+# NOTE: requires a SonarCloud project `chrysa_gestureos` + `SONAR_TOKEN` secret
+# (manual dashboard action). Until created this workflow 404s — it is not a
+# required check, so it does not block merges. Remove this note once provisioned.
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  sonar:
+    if: github.actor != 'dependabot[bot]'
+    name: SonarCloud scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: SonarCloud scan
+        uses: chrysa/github-actions/sonar-scan-python@v1.1.0
+        with:
+          python-version: "3.14"
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          project-key: chrysa_gestureos
+          organization: chrysa
+          project-name: gestureos
+          sources: gestureos
+          tests: tests
