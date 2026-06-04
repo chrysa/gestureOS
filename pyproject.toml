@@ -1,0 +1,96 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "gestureos"
+version = "0.1.0"
+description = "Multi-screen eye & gesture computer control — cursor, click, scroll, drag and media control driven by camera (MediaPipe)"
+authors = [{ name = "chrysa", email = "greau.anthony@gmail.com" }]
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.14"
+keywords = [
+    "gesture",
+    "eye-tracking",
+    "computer-control",
+    "mediapipe",
+    "opencv",
+    "accessibility",
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Programming Language :: Python :: 3.14",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: Microsoft :: Windows",
+    "Topic :: Desktop Environment",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+]
+dependencies = [
+    "mediapipe>=0.10.35",
+    "opencv-python-headless>=4.13",
+    "numpy>=2.0",
+    "pydantic>=2.7",
+    "pydantic-settings>=2.3",
+    "click>=8.1",
+    "rich>=13.0",
+    "screeninfo>=0.8",
+]
+
+[project.optional-dependencies]
+# Windows-only OS-control backend deps (installed via platform markers at runtime).
+windows = [
+    "pyautogui>=0.9.54; sys_platform == 'win32'",
+    "pywin32>=306; sys_platform == 'win32'",
+    "pygetwindow>=0.0.9; sys_platform == 'win32'",
+]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "pytest-cov>=5.0",
+    "pytest-mock>=3.14",
+    "ruff>=0.8",
+    "mypy>=1.10",
+    "pre-commit>=4.0",
+    "import-linter>=2.0",
+]
+
+[project.scripts]
+gestureos = "gestureos.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["gestureos"]
+
+[tool.ruff]
+# py313 (not py314): ruff format <=0.15.15 strips multi-except parens under py314 — restore when fixed upstream.
+target-version = "py313"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "S", "B", "A", "C4", "T20", "N", "RUF"]
+ignore = ["S101"]
+
+[tool.ruff.lint.per-file-ignores]
+"benchmarks/**" = ["T20"]
+"tests/**" = ["S", "T20"]
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["gestureos.cli"]
+disallow_untyped_decorators = false
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--cov=gestureos --cov-report=xml --cov-report=term-missing --cov-fail-under=80"
+
+# import-linter contracts are activated in Step 2 once core/ exists.
+[tool.importlinter]
+root_package = "gestureos"

@@ -1,0 +1,84 @@
+---
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+      - "feat/**"
+      - "fix/**"
+      - "chore/**"
+      - "ci/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pre-commit:
+    name: Pre-commit checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: chrysa/github-actions/python-setup@v1.0.12
+        with:
+          python-version: "3.14"
+          cache: pip
+      - uses: pre-commit/action@v3.0.1
+        env:
+          SKIP: no-commit-to-branch
+
+  ruff:
+    name: Ruff
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup environment
+        uses: chrysa/github-actions/tool-setup@v1.0.12
+        with:
+          python-version: "3.14"
+          extras: dev
+      - name: Ruff checks
+        uses: chrysa/github-actions/ruff-check@v1.0.12
+        with:
+          python-version: "3.14"
+          sources: "gestureos tests"
+
+  mypy:
+    name: Mypy
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup environment
+        uses: chrysa/github-actions/tool-setup@v1.0.12
+        with:
+          python-version: "3.14"
+          extras: dev
+      - name: Mypy checks
+        uses: chrysa/github-actions/mypy-check@v1.0.12
+        with:
+          python-version: "3.14"
+          config-file: pyproject.toml
+          sources: "gestureos"
+
+  test:
+    name: Test (Docker)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build test image
+        run: docker build --target test -f Dockerfile.test -t gestureos-test .
+      - name: Run tests
+        run: docker run --rm gestureos-test
