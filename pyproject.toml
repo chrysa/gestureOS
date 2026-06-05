@@ -83,6 +83,12 @@ ignore_missing_imports = true
 module = ["gestureos.cli"]
 disallow_untyped_decorators = false
 
+# Tests use untyped third-party decorators (pytest.mark.parametrize). The pre-commit
+# mypy hook type-checks tests/ under strict; relax the decorator rule there only.
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+disallow_untyped_decorators = false
+
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 testpaths = ["tests"]
