@@ -27,13 +27,13 @@ docker-test:  ## Run tests inside Docker (canonical, mirrors CI deps)
 	docker run --rm gestureos-test
 
 lint:  ## Run linter (ruff check)
-	ruff check $(PKG) tests
+	ruff check core $(PKG) benchmarks tests
 
 format:  ## Format code (ruff format)
-	ruff format $(PKG) tests
+	ruff format core $(PKG) benchmarks tests
 
 typecheck:  ## Run mypy type checking
-	mypy $(PKG)
+	mypy core $(PKG)
 
 imports:  ## Verify core/ extraction invariant (import-linter)
 	lint-imports
