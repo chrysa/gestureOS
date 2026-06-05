@@ -51,7 +51,7 @@ jobs:
         uses: chrysa/github-actions/ruff-check@v1.0.12
         with:
           python-version: "3.14"
-          sources: "gestureos tests"
+          sources: "core gestureos tests"
 
   mypy:
     name: Mypy
@@ -70,7 +70,7 @@ jobs:
         with:
           python-version: "3.14"
           config-file: pyproject.toml
-          sources: "gestureos"
+          sources: "core gestureos"
 
   test:
     name: Test (Docker)
@@ -82,3 +82,5 @@ jobs:
         run: docker build --target test -f Dockerfile.test -t gestureos-test .
       - name: Run tests
         run: docker run --rm gestureos-test
+      - name: Import contracts (core stays app-agnostic)
+        run: docker run --rm gestureos-test lint-imports

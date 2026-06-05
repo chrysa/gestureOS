@@ -59,7 +59,7 @@ dev = [
 gestureos = "gestureos.cli:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["gestureos"]
+packages = ["core", "gestureos"]
 
 [tool.ruff]
 # py313 (not py314): ruff format <=0.15.15 strips multi-except parens under py314 — restore when fixed upstream.
@@ -95,8 +95,14 @@ testpaths = ["tests"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
-addopts = "--cov=gestureos --cov-report=xml --cov-report=term-missing --cov-fail-under=80"
+addopts = "--cov=core --cov=gestureos --cov-report=xml --cov-report=term-missing --cov-fail-under=80"
 
-# import-linter contracts are activated in Step 2 once core/ exists.
+# Extraction invariant (DECISIONS.md D-0002): core must not import the app or any modality.
 [tool.importlinter]
-root_package = "gestureos"
+root_packages = ["core", "gestureos"]
+
+[[tool.importlinter.contracts]]
+name = "core stays app- and modality-agnostic"
+type = "forbidden"
+source_modules = ["core"]
+forbidden_modules = ["gestureos"]

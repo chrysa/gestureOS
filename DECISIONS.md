@@ -61,3 +61,17 @@ Dependency spike (Step 0) result, verified in Docker `python:3.14-slim`:
 `ruff format` (<= 0.15.15) strips multi-`except` parentheses under `target-version = py314`,
 producing invalid Python (org-wide chrysa bug, ~20 repos). Pin `target-version = "py313"`
 in `pyproject.toml`. Revert once the upstream ruff fix ships.
+
+---
+
+## D-0005 — Bus for fan-out, synchronous FastPath for perception→action
+
+**Date**: 2026-06-04
+**Status**: accepted
+
+`core.bus.Bus` (asyncio pub/sub, bounded, newest-wins backpressure) is used only for
+**fan-out** consumers (context, dashboard, logging) where a few ms of queueing is
+acceptable. The **perception→action** hot chain uses `core.bus.FastPath` — direct
+synchronous inline dispatch, no queue hop — to protect the < 50 ms p95 latency budget
+(D-0003 / Step 1b). An async queue per frame would add latency and jitter on the path
+that the product is judged on.
