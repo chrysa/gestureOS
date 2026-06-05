@@ -25,7 +25,7 @@ gesture/voice/eye or OS specifics so it can be lifted into a shared library when
 starts (D-0002). Enforced two ways:
 
 1. **import-linter** forbidden contract: `core` may not import `gestureos`
-   (`make imports` / CI). 
+   (`make imports` / CI).
 2. **Two-fake-consumer contract test** (`tests/test_core_contract.py`): a gesture-fake
    AND a voice-fake run through the *identical* `event -> context -> resolve -> dispatch`
    core path. A modality-specific branch in core would force one to diverge.

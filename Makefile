@@ -33,7 +33,7 @@ format:  ## Format code (ruff format)
 	ruff format core $(PKG) benchmarks tests
 
 typecheck:  ## Run mypy type checking
-	mypy core $(PKG)
+	mypy core $(PKG) tests benchmarks
 
 imports:  ## Verify core/ extraction invariant (import-linter)
 	lint-imports

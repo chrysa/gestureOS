@@ -13,7 +13,7 @@ import asyncio
 import pytest
 
 from core.bus import Bus, FastPath
-from core.events import ContextSnapshot, PerceptionEvent
+from core.events import ContextSnapshot, ModalityPayload, PerceptionEvent
 from core.protocols import (
     ActionResolver,
     CommandRegistry,
@@ -46,7 +46,7 @@ CTX = ContextSnapshot(
 )
 
 
-def _gesture_event() -> PerceptionEvent[GesturePayload]:
+def _gesture_event() -> PerceptionEvent[ModalityPayload]:
     return PerceptionEvent(
         modality_id=GESTURE,
         trigger=Trigger(TriggerKind.GESTURE, GESTURE, "pinch"),
@@ -55,7 +55,7 @@ def _gesture_event() -> PerceptionEvent[GesturePayload]:
     )
 
 
-def _voice_event() -> PerceptionEvent[VoicePayload]:
+def _voice_event() -> PerceptionEvent[ModalityPayload]:
     return PerceptionEvent(
         modality_id=VOICE,
         trigger=Trigger(TriggerKind.VOICE_INTENT, VOICE, "click"),

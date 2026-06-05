@@ -14,6 +14,7 @@ from core.events import (
     ActionRequest,
     ActionResult,
     ContextSnapshot,
+    ModalityPayload,
     PerceptionEvent,
 )
 from core.types import ActionId, ModalityId, Trigger, TriggerKind
@@ -51,26 +52,26 @@ class VoiceConfig:
 # --- fake engines --------------------------------------------------------------------
 @dataclass(slots=True)
 class FakeGestureEngine:
-    events: Sequence[PerceptionEvent[GesturePayload]]
+    events: Sequence[PerceptionEvent[ModalityPayload]]
 
     @property
     def modality_id(self) -> ModalityId:
         return GESTURE
 
-    async def stream(self) -> AsyncIterator[PerceptionEvent[GesturePayload]]:
+    async def stream(self) -> AsyncIterator[PerceptionEvent[ModalityPayload]]:
         for event in self.events:
             yield event
 
 
 @dataclass(slots=True)
 class FakeVoiceEngine:
-    events: Sequence[PerceptionEvent[VoicePayload]]
+    events: Sequence[PerceptionEvent[ModalityPayload]]
 
     @property
     def modality_id(self) -> ModalityId:
         return VOICE
 
-    async def stream(self) -> AsyncIterator[PerceptionEvent[VoicePayload]]:
+    async def stream(self) -> AsyncIterator[PerceptionEvent[ModalityPayload]]:
         for event in self.events:
             yield event
 
@@ -99,7 +100,7 @@ class FakeRegistry:
 class FakeResolver:
     registry: FakeRegistry
 
-    def resolve(self, event: PerceptionEvent[object], context: ContextSnapshot) -> ActionRequest | None:
+    def resolve(self, event: PerceptionEvent[ModalityPayload], context: ContextSnapshot) -> ActionRequest | None:
         action_id = self.registry.action_for(event.trigger)
         if action_id is None:
             return None
