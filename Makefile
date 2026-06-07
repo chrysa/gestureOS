@@ -1,9 +1,10 @@
+# makefile-tier: lib
 .DEFAULT_GOAL := help
 
 PYTHON := python3
 PKG    := gestureos
 
-.PHONY: help install dev test test-cov docker-test lint format typecheck imports bench clean run
+.PHONY: help install dev test test-cov docker-test lint format typecheck imports bench clean run build pre-commit
 
 help:  ## Show available commands
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -40,6 +41,12 @@ imports:  ## Verify core/ extraction invariant (import-linter)
 
 bench:  ## Run latency harness (p50/p95/p99, per-stage budget)
 	$(PYTHON) -m benchmarks.latency
+
+build:  ## Build wheel distribution package
+	$(PYTHON) -m build
+
+pre-commit:  ## Run all pre-commit hooks
+	pre-commit run --all-files
 
 clean:  ## Remove build artefacts
 	find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
