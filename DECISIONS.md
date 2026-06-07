@@ -75,3 +75,14 @@ acceptable. The **perception→action** hot chain uses `core.bus.FastPath` — d
 synchronous inline dispatch, no queue hop — to protect the < 50 ms p95 latency budget
 (D-0003 / Step 1b). An async queue per frame would add latency and jitter on the path
 that the product is judged on.
+
+## Adopt chrysa canonical CI/process workflows and pre-commit baseline
+
+- **Date:** 2026-06-07
+- **Status:** Accepted
+- **Context:** Repo configuration drifted from the chrysa standard (OPS-190).
+- **Decision:** Adopt the canonical hygiene files, GitHub process workflows,
+  and the Full pre-commit baseline defined in `chrysa/shared-standards`
+  (EXECUTION_STANDARD section 8/14, ADR 0001).
+- **Consequences:** CI job contract (pre-commit/lint/test/sonar) and branch
+  protection align across the ecosystem; per-repo tuning stays in this file.
