@@ -4,6 +4,7 @@ fail_fast: false
 minimum_pre_commit_version: 4.1.0
 repos:
 - hooks:
+  - id: makefile-check
   - exclude: ^(\.github/ISSUE_TEMPLATE/|\.github/workflows/|GitVersion\.yml)
     id: yaml-sorter
   - id: json-sorter
@@ -23,7 +24,7 @@ repos:
     stages:
     - pre-push
   repo: https://github.com/chrysa/pre-commit-tools
-  rev: v0.1.1-93
+  rev: v0.1.1-94
 - hooks:
   - id: trailing-whitespace
   - id: end-of-file-fixer
