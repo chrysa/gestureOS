@@ -1,49 +1,99 @@
 # gestureOS
 
-> Multi-screen eye & gesture computer control — drive the cursor, click, scroll, drag and
-> control media with your hands and gaze, using a plain webcam.
+> Control your computer hands-free with a plain webcam — move the cursor, click, scroll,
+> drag and control media using hand gestures and gaze, across up to four screens.
 
 [![CI](https://github.com/chrysa/gestureOS/actions/workflows/ci.yml/badge.svg)](https://github.com/chrysa/gestureOS/actions/workflows/ci.yml)
 
-gestureOS turns a webcam into a hands-free input device: hand-gesture cursor control
-(move / click / scroll / drag), multi-screen spatial mapping (1–4 screens), gaze-based
-screen focus, and media control. It is the **leader** of a re-separated pair —
-[voiceOS](https://github.com/chrysa/voiceOS) is its voice-driven twin; both are built on
-the same internal `core/` (see [DECISIONS.md](DECISIONS.md), D-0002).
+gestureOS turns any webcam into a hands-free input device. No special hardware, no
+wearables — just the camera you already have.
+
+## Who it's for
+
+People who want or need to drive a desktop without a mouse: accessibility users,
+hands-busy workflows, multi-screen setups, and anyone building on top of a low-latency
+perception→action pipeline.
 
 ## Status
 
-**Pre-alpha — bootstrap.** Repository scaffolding only; no working pipeline yet.
-The full multi-PR construction plan lives in [`plans/gestureos-construction.md`](plans/gestureos-construction.md).
+**Pre-alpha — bootstrap.** This repository currently ships the `core/` foundation
+(typed protocols, event types, the pub/sub bus + latency fast-path) and the latency
+harness. The webcam perception and OS-control pipeline is **not implemented yet**, so
+the features below describe the target, not what runs today. The CLI is a stub that only
+prints its version.
 
-## Stack
+The full multi-PR construction plan lives in
+[`plans/gestureos-construction.md`](plans/gestureos-construction.md).
 
-- **Python 3.14** (runtime confirmed by the Step 0 dependency spike — D-0003)
-- **MediaPipe Tasks API** (`HandLandmarker` / `FaceLandmarker`) + **OpenCV** for perception
-- **OS Control Layer** behind a protocol — Linux (`ydotool` / `wmctrl` / `xdotool`),
-  Windows (`pywin32` / `pyautogui` / `pygetwindow`), plus a no-op backend for headless CI
-- **asyncio** pub/sub bus for fan-out; a synchronous fast-path for the perception→action chain
-- **PyQt6** dashboard (later phase)
+## Planned features
 
-## Hard requirement
+- **Gesture cursor control** — move, click, scroll and drag with hand gestures
+  (e.g. pinch → click, two-finger → scroll)
+- **Multi-screen spatial mapping** — the cursor crosses 1–4 screens with correct geometry
+- **Gaze-based screen focus** — look at a screen to direct input there
+- **Media control** — play/pause and friends, hands-free
+- **Cross-platform OS layer** — Linux (`ydotool` / `wmctrl` / `xdotool`) and
+  Windows (`pywin32` / `pyautogui` / `pygetwindow`) behind one protocol, plus a no-op
+  backend for headless CI
 
-Perception→action latency **< 50 ms** (p95, real pipeline). Measured per stage
-(`capture | inference | landmark→gesture | resolve | dispatch | OS-call`) by `make bench`.
+gestureOS is the **leader** of a re-separated pair —
+[voiceOS](https://github.com/chrysa/voiceOS) is its voice-driven twin; both build on the
+same internal `core/` (see [DECISIONS.md](DECISIONS.md), D-0002).
+
+## Requirements
+
+- **Python 3.14**
+- A webcam (for the pipeline, once implemented)
+- Linux system libs for MediaPipe: `libgl1 libglib2.0-0 libxcb1 libgles2 libegl1`
+
+## Install
+
+```bash
+make install      # pip install -e .  (runtime deps)
+# or, for development:
+make dev          # editable install with [dev] extras + pre-commit hooks
+```
+
+## Usage
+
+Today the only working command is the version stub:
+
+```bash
+gestureos              # prints version + hint, or:
+python -m gestureos
+gestureos --help       # list commands
+```
+
+The real composition root (camera capture → gesture → OS control) lands in a later step
+of the construction plan; this section will grow as the pipeline comes online.
+
+## Performance requirement
+
+Perception→action latency must stay **under 50 ms** (p95, real pipeline), measured
+per stage (`capture | inference | landmark→gesture | resolve | dispatch | os_call`):
+
+```bash
+make bench        # latency harness — p50/p95/p99 + per-stage budget check
+```
 
 ## Development
 
 ```bash
-make dev          # install deps + pre-commit
 make docker-test  # run the test suite in Docker (canonical — mirrors CI deps)
 make lint         # ruff check
-make typecheck    # mypy
-make bench        # latency harness (p50/p95/p99)
+make typecheck    # mypy (strict)
+make imports      # verify the core/ extraction invariant (import-linter)
 ```
 
 > Tests and linters run in Docker (`Dockerfile.test`) or via pre-commit — never directly
-> on the host. MediaPipe needs system libs (`libgl1 libglib2.0-0 libxcb1 libgles2 libegl1`)
-> baked into the test image.
+> on the host. MediaPipe needs the system libs above baked into the test image.
+
+See [`docs/architecture.md`](docs/architecture.md) for the layer design and the
+`core/` extraction invariant, and [`docs/manual-smoke.md`](docs/manual-smoke.md) for the
+human-run verification checklist.
 
 ## License
 
 MIT © chrysa
+</content>
+</invoke>
