@@ -41,3 +41,7 @@ Full multi-PR construction blueprint: [`plans/gestureos-construction.md`](plans/
 Serial spine: Step 0 (dep spike ✅) → 1 (bootstrap) → 1b (latency harness) → 2 (core/) →
 5b (app) → 6a/6b/6c (gesture MVP) → 7/7b (multiscreen) → 8 (eye) → 9 (media) → 10
 (contextual AI) → 11b (packaging) → 12 (core/ extraction audit → unblocks voiceOS).
+
+<!-- chrysa:standards-import:start -->
+@.chrysa/STANDARDS.md
+<!-- chrysa:standards-import:end -->
