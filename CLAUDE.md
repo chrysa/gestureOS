@@ -41,3 +41,12 @@ Full multi-PR construction blueprint: [`plans/gestureos-construction.md`](plans/
 Serial spine: Step 0 (dep spike ✅) → 1 (bootstrap) → 1b (latency harness) → 2 (core/) →
 5b (app) → 6a/6b/6c (gesture MVP) → 7/7b (multiscreen) → 8 (eye) → 9 (media) → 10
 (contextual AI) → 11b (packaging) → 12 (core/ extraction audit → unblocks voiceOS).
+
+## Skills
+
+- `testing-pytest/SKILL.md` — pytest DDD + pytest-mock + constants (load when writing tests)
+
+- `dockerfile-multistage/SKILL.md` — 4-stage Python 3.14 containers (load when editing Dockerfile)
+
+Shared skills from `shared-standards/.claude/skills/`:
+- `ui-ux/SKILL.md` — UX/UI/ergonomics, WCAG 2.1 AA, dark mode, i18n FR+EN (load when building any human-facing surface)
