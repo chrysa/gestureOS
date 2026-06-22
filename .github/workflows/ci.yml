@@ -6,8 +6,8 @@
 #   benchmarks      import package / source dir       (e.g. django_pytest)
 #   benchmarks tests      ruff sources, space-separated     (e.g. "django_pytest tests")
 #   tests        test dir                          (e.g. tests)
-#   target    repo name                         (e.g. django-pytest)
-#   chrysa_target  SonarCloud project key            (e.g. chrysa_django-pytest)
+#   gestureOS    repo name                         (e.g. django-pytest)
+#   chrysa_gestureOS  SonarCloud project key            (e.g. chrysa_django-pytest)
 #
 # ⚠️ This file lives in workflows/ (NOT .github/workflows/) — it is a copy-to-use
 #    template, not a reusable `uses:` workflow.
@@ -74,9 +74,9 @@ jobs:
                   python-version: "3.14"
                   sonar-token: ${{ secrets.SONAR_TOKEN }}
                   github-token: ${{ secrets.GITHUB_TOKEN }}
-                  project-key: chrysa_gestureos
+                  project-key: chrysa_gestureOS
                   organization: chrysa
-                  project-name: gestureos
-                  sources: core,gestureos
+                  project-name: gestureOS
+                  sources: benchmarks
                   tests: tests
                   coverage-report: coverage.xml
