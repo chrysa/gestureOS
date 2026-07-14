@@ -26,7 +26,7 @@ repos:
     stages:
     - pre-push
   repo: https://github.com/chrysa/pre-commit-tools
-  rev: v0.1.1-95
+  rev: v0.1.1-97
 - hooks:
   - id: trailing-whitespace
   - id: end-of-file-fixer
