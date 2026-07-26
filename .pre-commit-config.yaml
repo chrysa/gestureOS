@@ -3,7 +3,6 @@ default_language_version:
 fail_fast: false
 minimum_pre_commit_version: 4.1.0
 exclude: ^\.claude/
-
 repos:
 - hooks:
   - id: makefile-check
@@ -25,8 +24,11 @@ repos:
   - id: regression-gate
     stages:
     - pre-push
+  - id: claude-skill-frontmatter
+  - id: claude-agent-frontmatter
+  - id: claude-mcp-config
   repo: https://github.com/chrysa/pre-commit-tools
-  rev: v0.1.1-97
+  rev: v0.1.1-98
 - hooks:
   - id: trailing-whitespace
   - id: end-of-file-fixer
