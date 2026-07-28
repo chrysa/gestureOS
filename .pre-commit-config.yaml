@@ -2,6 +2,7 @@ default_language_version:
   python: python3.14
 fail_fast: false
 minimum_pre_commit_version: 4.1.0
+exclude: ^\.claude/
 repos:
 - hooks:
   - id: makefile-check
@@ -23,8 +24,11 @@ repos:
   - id: regression-gate
     stages:
     - pre-push
+  - id: claude-skill-frontmatter
+  - id: claude-agent-frontmatter
+  - id: claude-mcp-config
   repo: https://github.com/chrysa/pre-commit-tools
-  rev: v0.1.1-94
+  rev: v0.1.1-98
 - hooks:
   - id: trailing-whitespace
   - id: end-of-file-fixer
@@ -44,7 +48,7 @@ repos:
 - hooks:
   - additional_dependencies:
     - pydantic>=2.13.4
-    - pydantic-settings>=2.14.1
+    - pydantic-settings>=2.14.2
     id: mypy
   repo: https://github.com/pre-commit/mirrors-mypy
   rev: v2.1.0
@@ -91,3 +95,7 @@ repos:
     - commit-msg
   repo: https://github.com/compilerla/conventional-pre-commit
   rev: v4.4.0
+- repo: https://github.com/chrysa/guideline-checker
+  rev: v1.15.4
+  hooks:
+  - id: guideline-check
