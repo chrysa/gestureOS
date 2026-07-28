@@ -15,7 +15,7 @@ lib once voiceOS starts (D-0002). Modalities (gesture, eye, later voice) impleme
 `ModalityEngine` protocol and emit `PerceptionEvent`s; **no modality-specific type may
 leak into `core/`** — enforced by **import-linter** + a two-fake-consumer test.
 
-```
+```text
 core/            protocols, events, bus, types  (no modality, no real OS calls)
 gestureos/
   modalities/    gesture, eye  (implement ModalityEngine)
@@ -32,8 +32,6 @@ benchmarks/      latency harness (p50/p95/p99, per-stage)
 - ruff `target-version = "py313"` (py314 formatter bug — D-0004).
 - Tests / lint run in **Docker** (`Dockerfile.test`) or pre-commit — never on host.
 - Latency budget is law: perception→action **p95 < 50 ms**, measured per stage.
-- English for all code, docs, commits, PRs.
-- Conventional Commits; branches `feat/` `fix/` `chore/` `docs/` `refactor/`.
 
 ## Plan
 
