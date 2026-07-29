@@ -28,8 +28,9 @@ repos:
   - id: claude-agent-frontmatter
   - id: claude-mcp-config
   - id: python-no-unittest-import
+  - id: claude-assets-present
   repo: https://github.com/chrysa/pre-commit-tools
-  rev: v0.1.1-99
+  rev: v0.1.1-100
 - hooks:
   - id: trailing-whitespace
   - id: end-of-file-fixer
@@ -72,8 +73,6 @@ repos:
     - MD013
     - MD033
     - MD041
-    # `.claude/` holds managed copies distributed fleet-wide; this repo does not
-    # author them, so it must not be gated on their markdown style.
     exclude: ^\.claude/
     id: markdownlint
   repo: https://github.com/igorshubovych/markdownlint-cli
