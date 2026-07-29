@@ -72,6 +72,9 @@ repos:
     - MD013
     - MD033
     - MD041
+    # `.claude/` holds managed copies distributed fleet-wide; this repo does not
+    # author them, so it must not be gated on their markdown style.
+    exclude: ^\.claude/
     id: markdownlint
   repo: https://github.com/igorshubovych/markdownlint-cli
   rev: v0.48.0
