@@ -29,8 +29,12 @@ repos:
   - id: claude-mcp-config
   - id: python-no-unittest-import
   - id: claude-assets-present
+  - id: python-untyped-raise
+    exclude: ^tests?/
+  - id: python-mutable-default
+  - id: python-dispatch-ladder
   repo: https://github.com/chrysa/pre-commit-tools
-  rev: v0.1.1-100
+  rev: v0.2.0-247
 - hooks:
   - id: trailing-whitespace
   - id: end-of-file-fixer
