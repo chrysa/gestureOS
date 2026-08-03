@@ -65,7 +65,3 @@ jobs:
             });
 
             console.log('PR body updated.');
-name: Update PR body
-permissions:
-  contents: read
-  pull-requests: write

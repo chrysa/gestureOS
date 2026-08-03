@@ -81,8 +81,3 @@ jobs:
               });
             }
     timeout-minutes: 5
-name: Check Conflicts
-permissions:
-  contents: read
-  pull-requests: write
-run-name: Check Conflicts
