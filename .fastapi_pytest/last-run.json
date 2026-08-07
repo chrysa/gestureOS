@@ -1,0 +1,312 @@
+{
+  "tests": {
+    "tests/test_benchmark.py::test_harness_main_returns_zero": {
+      "duration": 0.26235621600062586,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "request"
+      ],
+      "nodeid": "tests/test_benchmark.py::test_harness_main_returns_zero",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_benchmark.py::test_noop_run_within_glue_budget": {
+      "duration": 0.42913191198022105,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "request"
+      ],
+      "nodeid": "tests/test_benchmark.py::test_noop_run_within_glue_budget",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_core_contract.py::test_bus_drops_oldest_on_full_queue": {
+      "duration": 0.013208907010266557,
+      "fixtures": [
+        "_function_scoped_runner",
+        "_session_faker",
+        "event_loop_policy",
+        "request"
+      ],
+      "nodeid": "tests/test_core_contract.py::test_bus_drops_oldest_on_full_queue",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_core_contract.py::test_bus_fans_out_to_subscribers": {
+      "duration": 0.038620994018856436,
+      "fixtures": [
+        "_function_scoped_runner",
+        "_session_faker",
+        "event_loop_policy",
+        "request"
+      ],
+      "nodeid": "tests/test_core_contract.py::test_bus_fans_out_to_subscribers",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_core_contract.py::test_fakes_satisfy_protocols": {
+      "duration": 0.013336648989934474,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "request"
+      ],
+      "nodeid": "tests/test_core_contract.py::test_fakes_satisfy_protocols",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_core_contract.py::test_fastpath_is_synchronous_inline": {
+      "duration": 0.008688730013091117,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "request"
+      ],
+      "nodeid": "tests/test_core_contract.py::test_fastpath_is_synchronous_inline",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_core_contract.py::test_profile_holds_configs_opaquely": {
+      "duration": 0.012587976001668721,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "request"
+      ],
+      "nodeid": "tests/test_core_contract.py::test_profile_holds_configs_opaquely",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_core_contract.py::test_two_modalities_share_identical_core_path": {
+      "duration": 0.026862202998017892,
+      "fixtures": [
+        "_function_scoped_runner",
+        "_session_faker",
+        "event_loop_policy",
+        "request"
+      ],
+      "nodeid": "tests/test_core_contract.py::test_two_modalities_share_identical_core_path",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_core_contract.py::test_unregistered_trigger_resolves_to_nothing": {
+      "duration": 0.013583384017692879,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "request"
+      ],
+      "nodeid": "tests/test_core_contract.py::test_unregistered_trigger_resolves_to_nothing",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_perf.py::test_budget_flags_violation": {
+      "duration": 0.0030360670061782002,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "request"
+      ],
+      "nodeid": "tests/test_perf.py::test_budget_flags_violation",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_perf.py::test_budget_passes_within_limits": {
+      "duration": 0.002868910989491269,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "request"
+      ],
+      "nodeid": "tests/test_perf.py::test_budget_passes_within_limits",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_perf.py::test_percentile[values0-95-0.0]": {
+      "duration": 0.009598345990525559,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "expected",
+        "q",
+        "request",
+        "values"
+      ],
+      "nodeid": "tests/test_perf.py::test_percentile[values0-95-0.0]",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_perf.py::test_percentile[values1-50-5.0]": {
+      "duration": 0.004975456016836688,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "expected",
+        "q",
+        "request",
+        "values"
+      ],
+      "nodeid": "tests/test_perf.py::test_percentile[values1-50-5.0]",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_perf.py::test_percentile[values2-50-2.5]": {
+      "duration": 0.004886868002358824,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "expected",
+        "q",
+        "request",
+        "values"
+      ],
+      "nodeid": "tests/test_perf.py::test_percentile[values2-50-2.5]",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_perf.py::test_percentile[values3-0-1.0]": {
+      "duration": 0.004749339015688747,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "expected",
+        "q",
+        "request",
+        "values"
+      ],
+      "nodeid": "tests/test_perf.py::test_percentile[values3-0-1.0]",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_perf.py::test_percentile[values4-100-4.0]": {
+      "duration": 0.005241217004368082,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "expected",
+        "q",
+        "request",
+        "values"
+      ],
+      "nodeid": "tests/test_perf.py::test_percentile[values4-100-4.0]",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_perf.py::test_percentile_rejects_out_of_range": {
+      "duration": 0.004393246985273436,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "request"
+      ],
+      "nodeid": "tests/test_perf.py::test_percentile_rejects_out_of_range",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_perf.py::test_recorder_groups_stages_per_frame": {
+      "duration": 0.0034120870113838464,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "request"
+      ],
+      "nodeid": "tests/test_perf.py::test_recorder_groups_stages_per_frame",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_perf.py::test_recorder_rejects_unknown_stage": {
+      "duration": 0.003798795980401337,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "request"
+      ],
+      "nodeid": "tests/test_perf.py::test_recorder_rejects_unknown_stage",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_perf.py::test_report_end_to_end_is_sum_of_stages": {
+      "duration": 0.003474344004644081,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "request"
+      ],
+      "nodeid": "tests/test_perf.py::test_report_end_to_end_is_sum_of_stages",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_perf.py::test_stage_context_manager_times": {
+      "duration": 0.00431476000812836,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "request"
+      ],
+      "nodeid": "tests/test_perf.py::test_stage_context_manager_times",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_smoke.py::test_cli_no_command_runs": {
+      "duration": 0.009264085005270317,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "request"
+      ],
+      "nodeid": "tests/test_smoke.py::test_cli_no_command_runs",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_smoke.py::test_cli_version_flag": {
+      "duration": 0.004782812000485137,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "request"
+      ],
+      "nodeid": "tests/test_smoke.py::test_cli_version_flag",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    },
+    "tests/test_smoke.py::test_version_is_set": {
+      "duration": 0.0029103900014888495,
+      "fixtures": [
+        "_session_faker",
+        "event_loop_policy",
+        "request"
+      ],
+      "nodeid": "tests/test_smoke.py::test_version_is_set",
+      "outcome": "passed",
+      "query_count": 0,
+      "uses_db": false
+    }
+  },
+  "total_duration": 0.8900836960528977,
+  "xdist_workers": 0
+}
