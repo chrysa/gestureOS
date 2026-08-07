@@ -95,5 +95,3 @@ human-run verification checklist.
 ## License
 
 MIT © chrysa
-</content>
-</invoke>
