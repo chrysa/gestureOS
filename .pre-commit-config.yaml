@@ -108,6 +108,6 @@ repos:
   repo: https://github.com/compilerla/conventional-pre-commit
   rev: v4.4.0
 - repo: https://github.com/chrysa/guideline-checker
-  rev: v1.30.10
+  rev: v1.30.16
   hooks:
   - id: guideline-check
