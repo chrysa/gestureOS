@@ -55,3 +55,6 @@ clean:  ## Remove build artefacts
 
 run:  ## Start gestureOS
 	$(PYTHON) -m gestureos
+
+.PHONY: ci
+ci: lint typecheck test  ## CI: run all checks (lint + typecheck + test)
