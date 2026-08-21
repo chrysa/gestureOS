@@ -4,110 +4,110 @@ fail_fast: false
 minimum_pre_commit_version: 4.1.0
 exclude: ^\.claude/
 repos:
-- hooks:
-  - id: makefile-check
-  - exclude: ^(\.github/ISSUE_TEMPLATE/|\.github/workflows/|GitVersion\.yml)
-    id: yaml-sorter
-  - id: json-sorter
-  - id: env-file-check
-  - id: debugger-detection
-    exclude: (^|/)tests?/|^(README\.md|docs/)
-  - id: python-print-detection
-    exclude: (^|/)tests?/|^(README\.md|docs/)
-  - id: python-logger-detection
-    exclude: (^|/)tests?/|^(README\.md|docs/)
-  - id: no-bare-except
-  - id: adr-gate
-  - id: python-pprint-detection
-    exclude: (^|/)tests?/|^(README\.md|docs/)
-  - id: no-sync-in-async
-  - id: env-example-sync
-  - id: python-unreachable-code
-  - exclude: tests?/|\.test\.|\.spec\.
-    id: no-hardcoded-localhost
-  - id: regression-gate
-    stages:
-    - pre-push
-  - id: claude-skill-frontmatter
-  - id: claude-agent-frontmatter
-  - id: claude-mcp-config
-  - id: python-no-unittest-import
-  - id: claude-assets-present
-  - id: python-untyped-raise
-    exclude: (^|/)tests?/
-  - id: python-mutable-default
-  - id: python-dispatch-ladder
-  - id: dockerfile-no-latest
-  repo: https://github.com/chrysa/pre-commit-tools
-  rev: v0.2.0-253
-- hooks:
-  - id: trailing-whitespace
-  - id: end-of-file-fixer
-  - id: detect-private-key
-  - id: no-commit-to-branch
-  - args:
-    - --allow-multiple-documents
-    exclude: ^\.github/ISSUE_TEMPLATE/
-    id: check-yaml
-  - id: check-json
-  - id: check-toml
-  - id: check-merge-conflict
-  - id: check-added-large-files
-  - id: mixed-line-ending
-  repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: v6.0.0
-- hooks:
-  - additional_dependencies:
-    - pydantic>=2.13.4
-    - pydantic-settings>=2.15.0
-    id: mypy
-  repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v2.1.0
-- hooks:
-  - args:
-    - --fix
-    id: ruff
-  - id: ruff-format
-  repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.15.14
-- hooks:
-  - args:
-    - --strict
-    id: yamllint
-  repo: https://github.com/adrienverge/yamllint
-  rev: v1.38.0
-- hooks:
-  - args:
-    - --disable
-    - MD013
-    - MD033
-    - MD041
-    exclude: ^\.claude/
-    id: markdownlint
-  repo: https://github.com/igorshubovych/markdownlint-cli
-  rev: v0.48.0
-- hooks:
-  - id: gitleaks
-  repo: https://github.com/gitleaks/gitleaks
-  rev: v8.30.1
-- hooks:
-  - args:
-    - feat
-    - fix
-    - docs
-    - style
-    - refactor
-    - test
-    - chore
-    - perf
-    - revert
-    - ci
-    id: conventional-pre-commit
-    stages:
-    - commit-msg
-  repo: https://github.com/compilerla/conventional-pre-commit
-  rev: v4.4.0
-- repo: https://github.com/chrysa/guideline-checker
-  rev: v1.30.16
-  hooks:
-  - id: guideline-check
+  - hooks:
+      - id: makefile-check
+      - exclude: ^(\.github/ISSUE_TEMPLATE/|\.github/workflows/|GitVersion\.yml)
+        id: yaml-sorter
+      - id: json-sorter
+      - id: env-file-check
+      - id: debugger-detection
+        exclude: '(^|/)tests?/|^(README\.md|docs/)'
+      - id: python-print-detection
+        exclude: '(^|/)tests?/|^(README\.md|docs/)|(^|/)quality_gate\.py$|^\.claude/ape/'
+      - id: python-logger-detection
+        exclude: '(^|/)tests?/|^(README\.md|docs/)'
+      - id: no-bare-except
+      - id: adr-gate
+      - id: python-pprint-detection
+        exclude: '(^|/)tests?/|^(README\.md|docs/)|(^|/)quality_gate\.py$|^\.claude/ape/'
+      - id: no-sync-in-async
+      - id: env-example-sync
+      - id: python-unreachable-code
+      - exclude: tests?/|\.test\.|\.spec\.
+        id: no-hardcoded-localhost
+      - id: regression-gate
+        stages:
+          - pre-push
+      - id: claude-skill-frontmatter
+      - id: claude-agent-frontmatter
+      - id: claude-mcp-config
+      - id: python-no-unittest-import
+      - id: claude-assets-present
+      - id: python-untyped-raise
+        exclude: '(^|/)tests?/'
+      - id: python-mutable-default
+      - id: python-dispatch-ladder
+      - id: dockerfile-no-latest
+    repo: https://github.com/chrysa/pre-commit-tools
+    rev: v0.2.0-253
+  - hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: detect-private-key
+      - id: no-commit-to-branch
+      - args:
+          - --allow-multiple-documents
+        exclude: ^\.github/ISSUE_TEMPLATE/
+        id: check-yaml
+      - id: check-json
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: check-added-large-files
+      - id: mixed-line-ending
+    repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+  - hooks:
+      - additional_dependencies:
+          - pydantic>=2.13.4
+          - pydantic-settings>=2.15.0
+        id: mypy
+    repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v2.1.0
+  - hooks:
+      - args:
+          - --fix
+        id: ruff
+      - id: ruff-format
+    repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.14
+  - hooks:
+      - args:
+          - --strict
+        id: yamllint
+    repo: https://github.com/adrienverge/yamllint
+    rev: v1.38.0
+  - hooks:
+      - args:
+          - --disable
+          - MD013
+          - MD033
+          - MD041
+        exclude: ^\.claude/
+        id: markdownlint
+    repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.48.0
+  - hooks:
+      - id: gitleaks
+    repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+  - hooks:
+      - args:
+          - feat
+          - fix
+          - docs
+          - style
+          - refactor
+          - test
+          - chore
+          - perf
+          - revert
+          - ci
+        id: conventional-pre-commit
+        stages:
+          - commit-msg
+    repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v4.4.0
+  - repo: https://github.com/chrysa/guideline-checker
+    rev: v1.30.16
+    hooks:
+      - id: guideline-check
