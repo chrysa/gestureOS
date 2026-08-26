@@ -6,7 +6,7 @@ exclude: ^\.claude/
 repos:
   - hooks:
       - id: makefile-check
-      - exclude: ^(\.github/ISSUE_TEMPLATE/|\.github/workflows/|GitVersion\.yml)
+      - exclude: ^(\.github/|workflows/|templates/|docker-compose)|(^|/)(pnpm-lock|yarn|uv|poetry)\.(yaml|lock)$|(^|/)\.pre-commit-config\.yaml$
         id: yaml-sorter
       - id: json-sorter
       - id: env-file-check
