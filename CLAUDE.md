@@ -100,6 +100,7 @@ Serial spine: Step 0 (dep spike ✅) → 1 (bootstrap) → 1b (latency harness) 
 ### Documentation & session state · `standards/rules/docs.md`
 - Notion logging
 - Documentation and Notion are maintained in lockstep with the code — a change that leaves them stale is unfinished
+- Every repo ships generated context files
 - Session lifecycle (primer + memory + hindsight)
 
 ### AI agents & features · `standards/rules/agents.md`

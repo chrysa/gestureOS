@@ -1,0 +1,51 @@
+{
+  "adrs": [],
+  "contracts": [
+    "standards"
+  ],
+  "ddd_level": "(not available)",
+  "dependencies": {
+    "python": [
+      "click",
+      "import-linter",
+      "mediapipe",
+      "mypy",
+      "numpy",
+      "opencv-python-headless",
+      "pre-commit",
+      "pyautogui",
+      "pydantic",
+      "pydantic-settings",
+      "pygetwindow",
+      "pytest",
+      "pytest-asyncio",
+      "pytest-cov",
+      "pytest-mock",
+      "pywin32",
+      "rich",
+      "ruff",
+      "screeninfo"
+    ]
+  },
+  "depends_on_shared_standards": true,
+  "description": "Multi-screen eye & gesture computer control — cursor, click, scroll, drag and media control driven by camera (MediaPipe)",
+  "entry_points": [
+    "gestureos"
+  ],
+  "key_directories": [
+    ".claude",
+    ".fastapi_pytest",
+    ".github",
+    "benchmarks",
+    "core",
+    "docs",
+    "gestureos",
+    "plans",
+    "scripts",
+    "standards",
+    "tests"
+  ],
+  "name": "gestureos",
+  "profiles": [],
+  "schema": "chrysa.context-map/1"
+}
