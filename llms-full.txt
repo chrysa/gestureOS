@@ -105,7 +105,6 @@ Multi-screen eye & gesture computer control — cursor, click, scroll, drag and 
     action-check.yml
     approved-label.yml
     auto-assign.yml
-    auto-update-pre-commit.yml
     ci.yml
     dependabot-auto-merge.yml
     detect-conflicts.yml
@@ -159,6 +158,7 @@ plans/
   gestureos-construction.md
 pyproject.toml
 scripts/
+  gen_context_files.py
   quality_gate.py
 sonar-project.properties
 standards/
@@ -213,6 +213,7 @@ gestureos/__init__.py — gestureos — Multi-screen eye & gesture computer cont
 gestureos/__main__.py — Entry point for `python -m gestureos`.
 gestureos/cli.py — gestureos command-line interface.
 gestureos/perf.py — Latency measurement primitives for the perception -> action pipeline.
+scripts/gen_context_files.py — Generate the standardised per-repo context files from the repo's own content.
 scripts/quality_gate.py
 tests/__init__.py
 tests/fakes.py — Fake modality consumers used to prove the core path is modality-neutral.
