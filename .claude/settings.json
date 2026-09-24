@@ -15,6 +15,12 @@
         "matcher": "Write|Edit|MultiEdit",
         "name": "verifiable-thresholds",
         "timeout": 10000
+      },
+      {
+        "command": "sh -c 'f=\"$CLAUDE_PROJECT_DIR/.claude/hooks/docker-test-on-core-edit.cjs\"; [ ! -f \"$f\" ] || node \"$f\"'",
+        "matcher": "Write|Edit|MultiEdit",
+        "name": "docker-test-on-core-edit",
+        "timeout": 5000
       }
     ],
     "PreCompact": [
@@ -52,6 +58,12 @@
             "type": "command"
           }
         ]
+      },
+      {
+        "command": "sh -c 'f=\"$CLAUDE_PROJECT_DIR/.claude/hooks/enforce-core-boundary.cjs\"; [ ! -f \"$f\" ] || node \"$f\"'",
+        "matcher": "Write|Edit|MultiEdit",
+        "name": "enforce-core-boundary",
+        "timeout": 5000
       },
       {
         "hooks": [
