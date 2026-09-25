@@ -40,6 +40,15 @@ Serial spine: Step 0 (dep spike ✅) → 1 (bootstrap) → 1b (latency harness) 
 5b (app) → 6a/6b/6c (gesture MVP) → 7/7b (multiscreen) → 8 (eye) → 9 (media) → 10
 (contextual AI) → 11b (packaging) → 12 (core/ extraction audit → unblocks voiceOS).
 
+## Documentation map
+
+Root docs (generated 2026-09-25 from repo evidence, tagged FACT/INFERENCE/UNKNOWN):
+`PRD.md` (product), `TRD.md` (technical reqs), `ARCHITECTURE.md` (top-level; layer detail in
+`docs/architecture.md`), `REQUIREMENTS.md` (REQ-PROD/REQ-TECH matrix), `CONSTRAINTS.md`,
+`TESTING.md`, `SECURITY.md`, `OBSERVABILITY.md`, `ROADMAP.md` (mirrors
+`plans/gestureos-construction.md`), `GLOSSARY.md`, `REVIEW.md` (doc-pass notes +
+contradictions). Binding decisions stay in `DECISIONS.md`.
+
 
 <!-- chrysa:standards:start · managed by distribute-standards.sh · DO NOT EDIT -->
 # chrysa — Transverse Standards (core)
