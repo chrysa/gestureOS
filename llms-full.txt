@@ -9,6 +9,7 @@ Multi-screen eye & gesture computer control — cursor, click, scroll, drag and 
 
 .claude/
   agents/
+    cv-perf-reviewer.md
     general-backend-developer.md
     general-code-quality-debugger.md
     general-devops.md
@@ -19,6 +20,7 @@ Multi-screen eye & gesture computer control — cursor, click, scroll, drag and 
     general-solution-architect.md
     general-technical-project-lead.md
     general-technical-writer.md
+    protocol-boundary-auditor.md
   ape/
     README.md
     ape-transform-v2.md
@@ -34,7 +36,11 @@ Multi-screen eye & gesture computer control — cursor, click, scroll, drag and 
   hooks/
     check-no-env-files.cjs
     circuit-breaker.cjs
+    claude-config-drift.cjs
+    docker-test-on-core-edit.cjs
+    enforce-core-boundary.cjs
     frustration-detection.cjs
+    graphify-auto-update.cjs
     secret-scanner.cjs
     verifiable-thresholds.cjs
   rules/
@@ -122,6 +128,7 @@ Multi-screen eye & gesture computer control — cursor, click, scroll, drag and 
 .pre-commit-config.yaml
 .yamllint
 AGENTS.md
+ARCHITECTURE.md
 CHANGELOG.md
 CLAUDE.md
 CODEOWNERS
@@ -167,6 +174,7 @@ standards/
     README.md
     accessibility.md
     agents.md
+    ai-orchestration.md
     api.md
     architecture.md
     backend-python.md
