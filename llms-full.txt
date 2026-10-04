@@ -83,6 +83,8 @@ Multi-screen eye & gesture computer control — cursor, click, scroll, drag and 
       SKILL.md
     plan/
       SKILL.md
+    rollout-status/
+      SKILL.md
     spec/
       SKILL.md
     standards-authoring/
@@ -95,6 +97,7 @@ Multi-screen eye & gesture computer control — cursor, click, scroll, drag and 
       SKILL.md
   thresholds.json
 .editorconfig
+.env.example
 .fastapi_pytest/
   last-run.json
 .gitattributes
