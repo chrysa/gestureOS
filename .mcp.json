@@ -5,22 +5,8 @@
       "args": [
         "-m",
         "graphify.serve",
-        "/home/anthony/Documents/perso/projects/chrysa/gestureOS/graphify-out/graph.json"
+        "${CLAUDE_PROJECT_DIR}/graphify-out/graph.json"
       ]
-    },
-    "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
-      }
-    },
-    "notion": {
-      "command": "npx",
-      "args": ["-y", "@notionhq/notion-mcp-server"],
-      "env": {
-        "OPENAPI_MCP_HEADERS": "{\"Authorization\": \"Bearer ${NOTION_API_KEY}\", \"Notion-Version\": \"2022-06-28\"}"
-      }
     }
   }
 }
