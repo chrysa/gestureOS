@@ -1,3 +1,5 @@
+@AGENTS.md
+
 # gestureOS — Claude context
 
 ## What this project does
