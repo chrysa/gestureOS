@@ -232,7 +232,6 @@
       "Read(~/.aws/**)",
       "Read(~/.kube/**)",
       "Read(~/.vault-token)",
-      "Read(!.env.example)",
       "Read(**/node_modules/**)",
       "Read(**/.venv/**)",
       "Read(**/__pycache__/**)",
