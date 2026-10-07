@@ -242,7 +242,8 @@
       "Read(**/.next/**)",
       "Read(**/dist/**)",
       "Read(**/*.min.js)",
-      "Read(**/*.map)"
+      "Read(**/*.map)",
+      "Read(!.env.example)"
     ]
   },
   "attribution": {
