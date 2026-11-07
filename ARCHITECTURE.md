@@ -1,79 +1,79 @@
-# ARCHITECTURE — gestureOS
+# Architecture — gestureOS
 
-> Root-level architecture overview. The layer design already lives in
-> [`docs/architecture.md`](docs/architecture.md); this file is the top-level entry point
-> and does not duplicate it. Binding rules are in [`DECISIONS.md`](DECISIONS.md).
-> Tags: **FACT** / **INFERENCE** / **UNKNOWN**.
+> Grounded in the repository as it stands. Where docs and manifests disagreed, the
+> manifests (`pyproject.toml`, `Makefile`, source) were trusted. `pyproject.toml`
+> declares the package name as `gestureos` (README title: "gestureOS").
 
-## 1. Design intent (Option A — "extract-after")
+## Purpose
 
-**FACT** — ~80% of the logic is modality- and OS-agnostic and lives in an internal
-**`core/`** package. `core/` is the extraction target for a shared library, lifted only
-when voiceOS becomes the second real consumer (rule of three). No shared lib is built
-upfront. (`CLAUDE.md` lines 9–16; `DECISIONS.md` D-0002.)
+gestureOS turns any webcam into a hands-free input device: move the cursor, click,
+scroll, drag and control media from camera-driven gestures, across multi-screen setups.
+It is the **leader** of a re-separated pair with voiceOS (its voice-driven twin), and is
+designed so a modality-agnostic `core/` can later be extracted into a library shared by
+both (DECISIONS.md D-0002, enforced by import-linter).
 
-## 2. Layers (as implemented today)
+Current state (per README and source): only the **foundation** is implemented — typed
+protocols, event/value types, the pub/sub bus + synchronous latency fast-path, and the
+latency harness. The webcam perception and OS-control pipeline are **not implemented
+yet**. The CLI is a bootstrap stub that only prints its version.
 
-**FACT** — Present in the repo:
+## Stack
 
-| Path | Role | Status |
-| --- | --- | --- |
-| `core/types.py` | `ActionId`, `ModalityId`, `Trigger`, `Profile` (opaque modality config) | Implemented |
-| `core/events.py` | `PerceptionEvent[P]`, `ContextSnapshot`, `ActionRequest`, `ActionResult`, `ModalityPayload` marker | Implemented |
-| `core/protocols.py` | `ModalityEngine`, `ContextProvider`, `CommandRegistry`, `ActionResolver`, `OSController`, `ProfileStore`, `CalibrationStore` (Protocols, no concrete classes) | Implemented |
-| `core/bus.py` | asyncio pub/sub `Bus` (fan-out, bounded, newest-wins) + `FastPath` (synchronous inline dispatch for the hot loop) | Implemented |
-| `gestureos/cli.py` | Click CLI — **version stub only** | Stub |
-| `gestureos/perf.py` | latency measurement helpers (percentiles, per-stage recorder, budget) | Implemented |
-| `benchmarks/latency.py` | latency harness driving the no-op backend | Implemented |
+- Language: Python (`requires-python` in `pyproject.toml`; classifiers list Python 3.14; Pre-Alpha).
+- Build backend: `hatchling`.
+- Runtime deps: `mediapipe`, `opencv-python-headless`, `numpy`, `pydantic`,
+  `pydantic-settings`, `click`, `rich`, `screeninfo`.
+- Windows-only OS-control extra (`[windows]`, platform-marked): `pyautogui`, `pywin32`, `pygetwindow`.
+- Dev deps (`[dev]`): `pytest`, `pytest-asyncio`, `pytest-cov`, `pytest-mock`, `ruff`,
+  `mypy`, `pre-commit`, `import-linter`.
+- Tooling: Ruff (lint + format), mypy, import-linter, pytest (cov gate `--cov-fail-under=80`).
 
-**FACT** — Declared but **not yet present** (target layout per `CLAUDE.md` lines 18–27 /
-`docs/architecture.md`): `gestureos/modalities/` (gesture, eye), `gestureos/oscontrol/`
-(per-OS backends), `gestureos/context/`, `gestureos/resolve/`, `gestureos/app/`
-(composition root).
+## Layout
 
-## 3. Data / event flow (target)
+- `core/` — modality-agnostic foundation (extraction target; must not import `gestureos`).
+  - `types.py` — value types: `ActionId`, `ModalityId`, `Trigger`, `Profile`, `ModalityConfig` protocol.
+  - `events.py` — event schemas: `PerceptionEvent[P]`, `ContextSnapshot`, `ActionRequest`, `ActionResult`.
+  - `protocols.py` — structural interfaces: `ModalityEngine`, `ContextProvider`, `CommandRegistry`, `ActionResolver`, `OSController`, `ProfileStore`.
+  - `bus.py` — async pub/sub `Bus` (bounded, newest-wins backpressure) + synchronous `FastPath` for the hot loop.
+- `gestureos/` — the application package.
+  - `cli.py` — Click/Rich CLI (bootstrap stub); `__main__.py` entry point; `perf.py` latency primitives (percentiles, per-stage timing, `Budget`).
+- `benchmarks/` — `latency.py` runnable harness (`fixtures/` for recorded frames, target Step 6a).
+- `tests/` — pytest suite (contract, perf, smoke, benchmark) + `fakes.py`.
+- `docs/`, `plans/`, `scripts/`, `standards/`, `graphify-out/` — docs, construction plan, tooling, standards, graph output.
 
-**FACT** — `PerceptionEvent → ContextSnapshot → ActionRequest → ActionResult`, i.e.
-perception → context → resolution → action → OS control. `PerceptionEvent` is **generic
-over a modality-owned `payload: P`** (bounded by `ModalityPayload`) so no modality-specific
-type enters `core/`. (`core/events.py` docstrings; `docs/architecture.md` lines 33–35.)
+## Entrypoints
 
-## 4. The extraction invariant
+- Console script: `gestureos = "gestureos.cli:main"` (`pyproject.toml`).
+- `python -m gestureos` → `gestureos/__main__.py` → `gestureos.cli:main`.
+- `make run` → `python -m gestureos`.
+- `python -m benchmarks.latency` (`make bench`) — latency harness.
+- Today all CLI does is print the version / help (stub).
 
-**FACT** — `core/` must not import `gestureos`. Enforced two ways:
-1. **import-linter** forbidden contract (`make imports` / CI; `pyproject.toml`
-   `[tool.importlinter]`, `forbidden_modules = ["gestureos"]`).
-2. **Two-fake-consumer contract test** (`tests/test_core_contract.py`): a gesture-fake and
-   a voice-fake run the identical `event → context → resolve → dispatch` core path.
-(`docs/architecture.md` lines 21–35; `AGENTS.md` lines 9–10.)
+## Data & external dependencies
 
-## 5. Latency architecture (D-0005)
+- No database, no network services in the repo.
+- Perception via camera + MediaPipe/OpenCV (planned, not yet wired).
+- OS control abstracted behind the `OSController` protocol; Windows backend deps are
+  platform-marked; a no-op backend is used until real backends land.
+- `screeninfo` for multi-screen enumeration.
+- Latency contract: end-to-end p95 < 50 ms (glue sub-budget < 5 ms today).
 
-**FACT** — Two dispatch paths. The asyncio `Bus` handles **fan-out** (context, dashboard,
-logging) where small queueing latency is acceptable; it is bounded and newest-wins so a
-slow consumer never stalls publishers. The **perception→action** chain bypasses the bus
-via `FastPath` (direct synchronous inline dispatch) to protect the p95 < 50 ms budget — an
-async queue hop per frame would add latency and jitter. (`DECISIONS.md` D-0005;
-`docs/architecture.md` lines 37–43.)
+## Build & test
 
-## 6. Perception stack (planned)
+Tests and linters are meant to run in Docker (`Dockerfile.test`, mirrors CI) or via
+pre-commit — not directly on the host (MediaPipe needs system libs baked into the image).
+Real commands (`Makefile`):
 
-**FACT** — MediaPipe **Tasks API** only (`HandLandmarker` / `FaceLandmarker` with a
-downloaded `.task` model); the legacy `mediapipe.solutions` API is removed and must not be
-used. `opencv-python-headless` is used so CI imports cleanly without an X server.
-(`DECISIONS.md` D-0003; `CLAUDE.md` line 31.)
-
-## 7. Cross-OS control (planned)
-
-**FACT** — One `OSController` protocol (`core/protocols.py`) with backends for Linux,
-Windows (`pyautogui` / `pywin32` / `pygetwindow`, installed via platform markers,
-`pyproject.toml` `[project.optional-dependencies].windows`), and a no-op/recording backend
-for headless CI. **UNKNOWN** — the concrete Linux backend library choice is not fixed in
-code yet (README phrasing only).
-
-## 8. Related documents
-
-- Layer detail: [`docs/architecture.md`](docs/architecture.md)
-- Decisions: [`DECISIONS.md`](DECISIONS.md)
-- Build plan: [`plans/gestureos-construction.md`](plans/gestureos-construction.md)
-- Constraints: [`CONSTRAINTS.md`](CONSTRAINTS.md) · Technical requirements: [`TRD.md`](TRD.md)
+```bash
+make dev           # editable install with [dev] extras + pre-commit hooks
+make test          # pytest tests/ -v
+make test-cov      # pytest with coverage
+make docker-test   # build + run the test suite in Docker (canonical)
+make lint          # ruff check core gestureos benchmarks tests
+make format        # ruff format ...
+make typecheck     # mypy core gestureos tests benchmarks
+make imports       # lint-imports (core/ extraction invariant)
+make bench         # python -m benchmarks.latency
+make build         # python -m build (wheel)
+make ci            # lint + typecheck + test
+```

@@ -7,6 +7,13 @@
         "graphify.serve",
         "${CLAUDE_PROJECT_DIR}/graphify-out/graph.json"
       ]
+    },
+    "context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ]
     }
   }
 }
